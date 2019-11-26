@@ -17,10 +17,11 @@ class Lyrics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Song song = Provider.of<Song>(context);
-    List<String> _artists = song.artists;
-    String _songName = song.name;
-    if (_artists == null || _songName == null) return Container();
-    if (song.currentlyPlaying == false)
+    List<String> artists = song.artists;
+    String songName = song.name;
+    bool isPlaying = song.currentlyPlaying;
+    if (isPlaying == null || artists == null || songName == null) return Container();
+    if (isPlaying == false)
       return RaisedButton(
         child: Text('Refresh'),
         onPressed: () async {
@@ -30,7 +31,7 @@ class Lyrics extends StatelessWidget {
       );
 
     return FutureBuilder<String>(
-      future: loadLyrics(_artists, _songName),
+      future: loadLyrics(artists, songName),
       builder: (context, snapshot) {
         if (snapshot.hasData)
           return Text(
@@ -49,7 +50,7 @@ class Lyrics extends StatelessWidget {
               RaisedButton(
                 child: Text('Refresh'),
                 onPressed: () async {
-                  print('refreshing with $_artists $_songName');
+                  print('refreshing with $artists $songName');
                   await spotify.getCurrentlyPlaying(
                       GlobalConfiguration().getString('accessToken'), context);
                 },
