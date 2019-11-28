@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:lyrics_finder/models/settings.dart';
 import 'package:provider/provider.dart';
 
 import '../services/https.dart' as https;
@@ -8,6 +9,7 @@ import '../models/song.dart';
 
 class Lyrics extends StatelessWidget {
   Future<String> loadLyrics(List<String> artists, String songName) async {
+    print('loadingLyrics');
     var lyrics = '';
     final link = await https.queryAZLyrics(artists, songName);
     lyrics = await https.parseLyrics(link);
@@ -16,12 +18,16 @@ class Lyrics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Settings settings = Provider.of<Settings>(context);
     Song song = Provider.of<Song>(context);
     List<String> artists = song.artists;
     String songName = song.name;
     bool isPlaying = song.currentlyPlaying;
-    if (isPlaying == null || artists == null || songName == null) return Container();
-    if (isPlaying == false)
+
+    if (isPlaying == null &&
+        !(isPlaying == null && artists != null && songName != null))
+      return Container();
+    if (isPlaying == false) {
       return RaisedButton(
         child: Text('Refresh'),
         onPressed: () async {
@@ -29,6 +35,7 @@ class Lyrics extends StatelessWidget {
               GlobalConfiguration().getString('accessToken'), context);
         },
       );
+    }
 
     return FutureBuilder<String>(
       future: loadLyrics(artists, songName),
@@ -37,6 +44,9 @@ class Lyrics extends StatelessWidget {
           return Text(
             '${snapshot.data}',
             textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: settings.fontSize,
+            ),
           );
         if (snapshot.hasError) {
           return Column(
@@ -45,6 +55,7 @@ class Lyrics extends StatelessWidget {
                 snapshot.error.toString(),
                 style: TextStyle(
                   color: Colors.redAccent,
+                  fontSize: settings.fontSize,
                 ),
               ),
               RaisedButton(

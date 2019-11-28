@@ -1,38 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:lyrics_finder/components/query.dart';
 
-import './auth_page.dart';
-import './query_form.dart';
-import './lyrics.dart';
+import './spotify.dart';
 import '../services/spotify.dart' as spotify;
-import './song_info.dart';
-
-_onRefresh(BuildContext context) async {
-  await spotify.getCurrentlyPlaying(
-      GlobalConfiguration().getString("accessToken"), context);
-
-  return 'success';
-}
 
 class ChooseMode extends StatelessWidget {
+  refreshSong(BuildContext context) async {
+    await spotify.getCurrentlyPlaying(
+        GlobalConfiguration().getString("accessToken"), context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            // TODO add toggle to close query form, or switch mode?
-            AuthPage(),
-            QueryForm(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SongInfo(),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: RaisedButton(
+              onPressed: () {
+                refreshSong(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Spotify(),
+                  ),
+                );
+              },
+              child: Text('Song from Spotify'),
             ),
-            Lyrics(),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Query(),
+                  ),
+                );
+              },
+              child: Text('Manual search'),
+            ),
+          ),
+        ],
       ),
-      onRefresh: () => _onRefresh(context),
     );
   }
 }

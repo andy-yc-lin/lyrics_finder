@@ -41,16 +41,16 @@ class _AuthPageState extends State<AuthPage> {
         var code = url.split("code=")[1];
         print('Code: $code');
 
+        String accessToken;
         try {
-          String accessToken = await auth.getAccessToken(code);
+          accessToken = await auth.getAccessToken(code);
           GlobalConfiguration().updateValue("accessToken", accessToken);
           print('Access Token: $accessToken');
-          flutterWebviewPlugin.close();
-
-          await spotify.getCurrentlyPlaying(accessToken, context);
         } catch (err) {
-          flutterWebviewPlugin.close();
           print(err);
+        } finally {
+          await spotify.getCurrentlyPlaying(accessToken, context);
+          await flutterWebviewPlugin.close();
         }
       } else {
         // TODO Error
@@ -67,18 +67,8 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO Tried to make this not build (possible?) exist when
-    //   already authenticated
     Song song = Provider.of<Song>(context);
-
-    if (song.currentlyPlaying != null) return Container();
-
-
-    return RaisedButton(
-      child: Text('Authenticate with Spotify'),
-      onPressed: () {
-        flutterWebviewPlugin.launch(url);
-      },
-    );
+    if (song.currentlyPlaying == null) flutterWebviewPlugin.launch(url);
+    return Container();
   }
 }

@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:global_configuration/global_configuration.dart';
 
 import './components/choose_mode.dart';
+import './components/side_menu.dart';
+import './models/settings.dart';
 import './models/song.dart';
 
 void main() async {
@@ -16,8 +18,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final appTitle = 'Lyrics Finder';
 
-    return ChangeNotifierProvider(
-      builder: (context) => Song(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (context) => Song()),
+        ChangeNotifierProvider(builder: (context) => Settings()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: appTitle,
@@ -27,6 +32,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.deepPurple,
           ),
           body: ChooseMode(),
+          drawer: SideMenu(),
         ),
       ),
     );

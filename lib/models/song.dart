@@ -34,9 +34,9 @@ class Song with ChangeNotifier {
 
   songFromJson(Map<String, dynamic> json) {
     if (json == null) {
+      print('songFromJson $json');
       _currentlyPlaying = false;
-      notifyListeners();
-      return;
+      return notifyListeners();
     }
 
     final item = json['item'];

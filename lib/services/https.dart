@@ -26,7 +26,7 @@ Future<String> parseLyrics(String link) async {
 Future<String> queryAZLyrics(List<String> artists, String songName) async {
   final query = buildQuery(artists, songName);
   final url = 'https://search.azlyrics.com/search.php?q=$query';
-  print('Url $url');
+  print('Query Url $url');
   final response = await http.get(url);
 
   if (response.statusCode == 200) {
@@ -39,27 +39,24 @@ Future<String> queryAZLyrics(List<String> artists, String songName) async {
     if (lyricsDiv.length < 1 || lyricsDiv[0].attributes == null) {
       throw Exception('Search returned no results.');
     }
-    print(lyricsDiv[0].attributes['href']);
-    return lyricsDiv[0].attributes['href'];
+    final lyricsUrl = lyricsDiv[0].attributes['href'];
+    print('Lyrics Url $lyricsUrl');
+    return lyricsUrl;
   } else {
-    print('queryAZLyrics');
     throw Exception(response);
   }
 }
 
 String buildQuery(List<String> artists, String songName) {
-  print('buildQuery $artists $songName');
   var query = '';
   artists.forEach((artist) {
     query += '${normalizeString(artist)}+';
   });
   query += normalizeString(songName);
-  print('normalized $query');
   return '$query';
 }
 
 String normalizeString(String string) {
-  print('normalizeString $string');
   var sanitized = string.toLowerCase();
   final wordsToRemove = [
     '-',
@@ -70,7 +67,6 @@ String normalizeString(String string) {
   wordsToRemove.forEach((word) {
     if (sanitized.contains(word)) {
       sanitized = sanitized.substring(0, sanitized.indexOf(word));
-      print(sanitized);
     }
   });
   return sanitized
@@ -97,7 +93,7 @@ Future<Token> postUserToken(code) async {
   if (response.statusCode == 200) {
     return Token.fromJson(json.decode(res));
   } else {
-    print(res);
+    print('postUserToken $res');
     throw Exception(res);
   }
 }
@@ -112,7 +108,7 @@ Future<Map<String, dynamic>> getCurrentlyPlaying(token) async {
   if (response.statusCode == 200 || response.statusCode == 204) {
     return res.isEmpty ? null : json.decode(res);
   } else {
-    print(res);
+    print('getCurrentlyPlaying $res');
     throw Exception(res);
   }
 }

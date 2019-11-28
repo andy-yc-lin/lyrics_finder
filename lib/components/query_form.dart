@@ -21,26 +21,12 @@ class QueryFormState extends State<QueryForm> {
   }
 
   validateIsEmpty(value) {
-    if (value.isEmpty) {
-      return 'Required *';
-    }
-    return null;
-  }
-
-  updateLyrics(song) {
-    if (this._formKey.currentState.validate()) {
-      song.artists = [_artistController.text];
-      song.name = _songController.text;
-    }
+    return value.isEmpty ? 'Required *' : null;
   }
 
   @override
   Widget build(BuildContext context) {
     Song song = Provider.of<Song>(context);
-
-    if ((song.currentlyPlaying ?? false) && song.currentlyPlaying)
-      return Container();
-
     return Form(
       key: _formKey,
       child: Padding(
@@ -62,7 +48,10 @@ class QueryFormState extends State<QueryForm> {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: RaisedButton(
                 onPressed: () {
-                  updateLyrics(song);
+                  if (this._formKey.currentState.validate()) {
+                    song.artists = [_artistController.text];
+                    song.name = _songController.text;
+                  }
                 },
                 child: Text('Submit'),
               ),
