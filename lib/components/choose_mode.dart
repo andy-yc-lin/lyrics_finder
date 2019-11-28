@@ -7,8 +7,9 @@ import '../services/spotify.dart' as spotify;
 
 class ChooseMode extends StatelessWidget {
   refreshSong(BuildContext context) async {
-    await spotify.getCurrentlyPlaying(
-        GlobalConfiguration().getString("accessToken"), context);
+    final token = GlobalConfiguration().getString("accessToken");
+    if (token == "1") return;
+    await spotify.getCurrentlyPlaying(token, context);
   }
 
   @override

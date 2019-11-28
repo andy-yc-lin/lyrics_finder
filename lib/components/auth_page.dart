@@ -39,7 +39,9 @@ class _AuthPageState extends State<AuthPage> {
       print("loading url: $url");
       if (url.startsWith('$callbackUrlScheme')) {
         var code = url.split("code=")[1];
+        if (code.endsWith('#_=_')) code = code.split('#_=_')[0];
         print('Code: $code');
+        flutterWebviewPlugin.stopLoading();
 
         String accessToken;
         try {
