@@ -48,6 +48,7 @@ class QueryFormState extends State<QueryForm> {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: RaisedButton(
                 onPressed: () {
+                  FocusScope.of(context).requestFocus(FocusNode());
                   if (this._formKey.currentState.validate()) {
                     song.artists = [_artistController.text];
                     song.name = _songController.text;

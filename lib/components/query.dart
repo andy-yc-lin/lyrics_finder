@@ -11,13 +11,18 @@ class Query extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              QueryForm(),
-              Lyrics(),
-            ],
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                QueryForm(),
+                Lyrics(),
+              ],
+            ),
           ),
         ),
       ),
