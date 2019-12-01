@@ -20,25 +20,28 @@ class Spotify extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
       ),
-      body: RefreshIndicator(
-        child: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                AuthPage(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SongInfo(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Lyrics(),
-                ),
-              ],
+      body: GestureDetector(
+        onTap: () {/* do nothing */},
+        child: RefreshIndicator(
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  AuthPage(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SongInfo(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Lyrics(),
+                  ),
+                ],
+              ),
             ),
           ),
+          onRefresh: () => refreshSong(context),
         ),
-        onRefresh: () => refreshSong(context),
       ),
       endDrawer: SideMenu(),
     );
