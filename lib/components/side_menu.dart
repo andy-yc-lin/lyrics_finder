@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lyrics_finder/models/settings.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SideMenu extends StatelessWidget {
   @override
@@ -9,9 +10,7 @@ class SideMenu extends StatelessWidget {
 
     return Theme(
       data: Theme.of(context).copyWith(
-        // Set the transparency here
-        canvasColor: Colors.grey.withOpacity(
-            0.5), //or any other color you want. e.g Colors.blue.withOpacity(0.5)
+        canvasColor: Colors.grey.withOpacity(0.5),
       ),
       child: Drawer(
         child: ListView(
@@ -37,14 +36,18 @@ class SideMenu extends StatelessWidget {
                   softWrap: false,
                 ),
                 leading: IconButton(
-                  onPressed: () {
-                    settings.fontSize -= 3;
+                  onPressed: () async {
+                    var prefs = await SharedPreferences.getInstance();
+                    settings.fontSize -= 3.0;
+                    prefs.setDouble("fontSize", settings.fontSize);
                   },
                   icon: Icon(Icons.remove),
                 ),
                 trailing: IconButton(
-                  onPressed: () {
-                    settings.fontSize += 3;
+                  onPressed: () async {
+                    var prefs = await SharedPreferences.getInstance();
+                    settings.fontSize += 3.0;
+                    prefs.setDouble("fontSize", settings.fontSize);
                   },
                   icon: Icon(Icons.add),
                 ),
