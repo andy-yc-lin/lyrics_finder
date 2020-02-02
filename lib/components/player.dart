@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lyrics_finder/models/song.dart';
+import 'package:lyrics_finder/services/spotify_service.dart' as spotifyService;
 
 class Player extends StatelessWidget {
   @override
@@ -18,7 +19,11 @@ class Player extends StatelessWidget {
             Icons.skip_previous,
             size: 32,
           ),
-          onPressed: () {},
+          onPressed: () async => {
+            spotifyService.playPrevious(),
+            await Future.delayed(Duration(milliseconds: 750)),
+            await spotifyService.getCurrentlyPlaying(context),
+          },
         ),
         IconButton(
           icon: song.currentlyPlaying == true
@@ -30,14 +35,22 @@ class Player extends StatelessWidget {
                   Icons.play_arrow,
                   size: 32,
                 ),
-          onPressed: () {},
+          onPressed: () async => {
+            spotifyService.playPause(song.currentlyPlaying),
+            await Future.delayed(Duration(milliseconds: 750)),
+            await spotifyService.getCurrentlyPlaying(context),
+          },
         ),
         IconButton(
           icon: Icon(
             Icons.skip_next,
             size: 32,
           ),
-          onPressed: () {},
+          onPressed: () async => {
+            spotifyService.playNext(),
+            await Future.delayed(Duration(milliseconds: 750)),
+            await spotifyService.getCurrentlyPlaying(context),
+          },
         ),
       ],
     ));

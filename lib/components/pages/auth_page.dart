@@ -32,7 +32,7 @@ class _AuthPageState extends State<AuthPage> {
       'client_id': clientId,
       'redirect_uri': '$callbackUrlScheme',
       'scope':
-          'user-read-private user-read-email user-read-currently-playing user-read-playback-state',
+          'user-read-private user-read-email user-read-currently-playing user-read-playback-state user-modify-playback-state',
     }).toString();
 
     flutterWebviewPlugin.onUrlChanged.listen((String url) async {
@@ -51,7 +51,7 @@ class _AuthPageState extends State<AuthPage> {
         } catch (err) {
           print(err);
         } finally {
-          await spotifyService.getCurrentlyPlaying(accessToken, context);
+          await spotifyService.getCurrentlyPlaying(context);
           await flutterWebviewPlugin.close();
         }
       } else {

@@ -29,8 +29,7 @@ class Lyrics extends StatelessWidget {
       return RaisedButton(
         child: Text('Refresh'),
         onPressed: () async {
-          await spotifyService.getCurrentlyPlaying(
-              GlobalConfiguration().getString('accessToken'), context);
+          await spotifyService.getCurrentlyPlaying(context);
         },
       );
     }
@@ -56,8 +55,7 @@ class Lyrics extends StatelessWidget {
                 child: Text('Refresh'),
                 onPressed: () async {
                   print('refreshing with $artists $songName');
-                  await spotifyService.getCurrentlyPlaying(
-                      GlobalConfiguration().getString('accessToken'), context);
+                  await spotifyService.getCurrentlyPlaying(context);
                 },
               )
             ],

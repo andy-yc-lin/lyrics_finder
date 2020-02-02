@@ -9,7 +9,7 @@ class ModeSelectionPage extends StatelessWidget {
   refreshSong(BuildContext context) async {
     final token = GlobalConfiguration().getString("accessToken");
     if (token == "1") return;
-    await spotifyService.getCurrentlyPlaying(token, context);
+    await spotifyService.getCurrentlyPlaying(context);
   }
 
   @override

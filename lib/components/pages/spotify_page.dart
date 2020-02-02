@@ -10,8 +10,7 @@ import 'package:lyrics_finder/services/spotify_service.dart' as spotifyService;
 
 class SpotifyPage extends StatelessWidget {
   refreshSong(BuildContext context) async {
-    await spotifyService.getCurrentlyPlaying(
-        GlobalConfiguration().getString("accessToken"), context);
+    await spotifyService.getCurrentlyPlaying(context);
     return 'success';
   }
 
