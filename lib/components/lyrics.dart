@@ -3,7 +3,7 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:provider/provider.dart';
 
 import '../services/https.dart' as https;
-import '../services/spotify.dart' as spotify;
+import '../services/spotify_service.dart' as spotifyService;
 import '../models/song.dart';
 
 class Lyrics extends StatelessWidget {
@@ -29,7 +29,7 @@ class Lyrics extends StatelessWidget {
       return RaisedButton(
         child: Text('Refresh'),
         onPressed: () async {
-          await spotify.getCurrentlyPlaying(
+          await spotifyService.getCurrentlyPlaying(
               GlobalConfiguration().getString('accessToken'), context);
         },
       );
@@ -56,7 +56,7 @@ class Lyrics extends StatelessWidget {
                 child: Text('Refresh'),
                 onPressed: () async {
                   print('refreshing with $artists $songName');
-                  await spotify.getCurrentlyPlaying(
+                  await spotifyService.getCurrentlyPlaying(
                       GlobalConfiguration().getString('accessToken'), context);
                 },
               )

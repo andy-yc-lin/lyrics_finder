@@ -4,7 +4,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:provider/provider.dart';
 
 import '../services/auth_service.dart' as auth;
-import '../services/spotify.dart' as spotify;
+import '../services/spotify_service.dart' as spotifyService;
 import '../models/song.dart';
 
 class AuthPage extends StatefulWidget {
@@ -51,7 +51,7 @@ class _AuthPageState extends State<AuthPage> {
         } catch (err) {
           print(err);
         } finally {
-          await spotify.getCurrentlyPlaying(accessToken, context);
+          await spotifyService.getCurrentlyPlaying(accessToken, context);
           await flutterWebviewPlugin.close();
         }
       } else {
