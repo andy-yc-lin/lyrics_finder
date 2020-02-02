@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:provider/provider.dart';
 
-import '../services/https.dart' as https;
-import '../services/spotify_service.dart' as spotifyService;
-import '../models/song.dart';
+import 'package:lyrics_finder/services/spotify_service.dart' as spotifyService;
+import 'package:lyrics_finder/services/http_service.dart' as http;
+import 'package:lyrics_finder/models/song.dart';
 
 class Lyrics extends StatelessWidget {
   Future<String> loadLyrics(List<String> artists, String songName) async {
     print('loadingLyrics');
     var lyrics = '';
-    final link = await https.queryAZLyrics(artists, songName);
-    lyrics = await https.parseLyrics(link);
+    final link = await http.queryAZLyrics(artists, songName);
+    lyrics = await http.getLyrics(link);
     return lyrics;
   }
 

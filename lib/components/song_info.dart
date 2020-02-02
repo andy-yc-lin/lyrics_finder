@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 
-import '../models/song.dart';
+import 'package:lyrics_finder/models/song.dart';
 
 class SongInfo extends StatelessWidget {
   String formatArtists(artists) {

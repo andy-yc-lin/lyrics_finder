@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:lyrics_finder/components/query_form.dart';
 import 'package:lyrics_finder/components/side_menu.dart';
+import 'package:lyrics_finder/components/lyrics.dart';
 
-import 'lyrics.dart';
-
-class Query extends StatelessWidget {
+class QueryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

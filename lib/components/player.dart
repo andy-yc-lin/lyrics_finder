@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lyrics_finder/models/song.dart';
 import 'package:provider/provider.dart';
+
+import 'package:lyrics_finder/models/song.dart';
 
 class Player extends StatelessWidget {
   @override
@@ -13,17 +14,29 @@ class Player extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         IconButton(
-          icon: Icon(Icons.skip_previous),
+          icon: Icon(
+            Icons.skip_previous,
+            size: 32,
+          ),
           onPressed: () {},
         ),
         IconButton(
           icon: song.currentlyPlaying == true
-              ? Icon(Icons.pause)
-              : Icon(Icons.play_arrow),
+              ? Icon(
+                  Icons.pause,
+                  size: 32,
+                )
+              : Icon(
+                  Icons.play_arrow,
+                  size: 32,
+                ),
           onPressed: () {},
         ),
         IconButton(
-          icon: Icon(Icons.skip_next),
+          icon: Icon(
+            Icons.skip_next,
+            size: 32,
+          ),
           onPressed: () {},
         ),
       ],

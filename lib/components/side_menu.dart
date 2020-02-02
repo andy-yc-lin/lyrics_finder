@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lyrics_finder/models/settings.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:lyrics_finder/models/settings.dart';
 
 class SideMenu extends StatelessWidget {
   @override
@@ -31,7 +32,7 @@ class SideMenu extends StatelessWidget {
               color: Colors.white.withOpacity(0.7),
               child: ListTile(
                 title: Text(
-                  'Font Size',
+                  'Lyrics Font Size',
                   textAlign: TextAlign.center,
                   softWrap: false,
                 ),

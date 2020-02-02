@@ -3,9 +3,9 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:provider/provider.dart';
 
-import '../services/auth_service.dart' as auth;
-import '../services/spotify_service.dart' as spotifyService;
-import '../models/song.dart';
+import 'package:lyrics_finder/services/auth_service.dart' as auth;
+import 'package:lyrics_finder/services/spotify_service.dart' as spotifyService;
+import 'package:lyrics_finder/models/song.dart';
 
 class AuthPage extends StatefulWidget {
   @override

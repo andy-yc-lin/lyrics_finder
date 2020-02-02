@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/song.dart';
+import 'package:lyrics_finder/models/song.dart';
 
 class QueryForm extends StatefulWidget {
   @override

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
-import 'package:lyrics_finder/components/query.dart';
 
-import './spotify.dart';
-import '../services/spotify.dart' as spotify;
+import 'package:lyrics_finder/components/pages/query_page.dart';
+import 'package:lyrics_finder/components/pages/spotify_page.dart';
+import 'package:lyrics_finder/services/spotify_service.dart' as spotifyService;
 
-class ChooseMode extends StatelessWidget {
+class ModeSelectionPage extends StatelessWidget {
   refreshSong(BuildContext context) async {
     final token = GlobalConfiguration().getString("accessToken");
     if (token == "1") return;
-    await spotify.getCurrentlyPlaying(token, context);
+    await spotifyService.getCurrentlyPlaying(token, context);
   }
 
   @override
@@ -26,7 +26,7 @@ class ChooseMode extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Spotify(),
+                    builder: (context) => SpotifyPage(),
                   ),
                 );
               },
@@ -40,7 +40,7 @@ class ChooseMode extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Query(),
+                    builder: (context) => QueryPage(),
                   ),
                 );
               },

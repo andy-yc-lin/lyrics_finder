@@ -1,15 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:html/parser.dart' as html show parse;
 import 'package:http/http.dart' as http;
-
-import '../models/token.dart';
 
 // TODO split this package into separate classes
 //   and build generic http request helper
 
-Future<String> parseLyrics(String link) async {
+Future<String> getLyrics(String link) async {
   final response = await http.get(link);
 
   final body = response.body;
@@ -75,42 +72,4 @@ String normalizeString(String string) {
       .replaceAll(RegExp('\\W'), ' ')
       .trim()
       .replaceAll(RegExp('\\s+'), '+');
-}
-
-Future<Token> postUserToken(code) async {
-  final id = GlobalConfiguration().getString('id');
-  final secret = GlobalConfiguration().getString('secret');
-  final creds64 = base64.encode(utf8.encode('$id:$secret'));
-  final response = await http.post(
-    'https://accounts.spotify.com/api/token',
-    headers: {"Authorization": "Basic $creds64"},
-    body: {
-      'grant_type': 'authorization_code',
-      'code': code,
-      'redirect_uri': GlobalConfiguration().getString('callbackUrlScheme'),
-    },
-  );
-
-  final res = response.body;
-  if (response.statusCode == 200) {
-    return Token.fromJson(json.decode(res));
-  } else {
-    print('postUserToken $res');
-    throw Exception(res);
-  }
-}
-
-Future<Map<String, dynamic>> getCurrentlyPlaying(token) async {
-  final response = await http.get(
-    'https://api.spotify.com/v1/me/player',
-    headers: {"Authorization": "Bearer $token"},
-  );
-
-  final res = response.body;
-  if (response.statusCode == 200 || response.statusCode == 204) {
-    return res.isEmpty ? null : json.decode(res);
-  } else {
-    print('getCurrentlyPlaying $res');
-    throw Exception(res);
-  }
 }

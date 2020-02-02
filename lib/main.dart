@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import './components/choose_mode.dart';
-import './components/side_menu.dart';
-import './models/settings.dart';
-import './models/song.dart';
+import 'package:lyrics_finder/components/pages/mode_selection_page.dart';
+import 'package:lyrics_finder/components/side_menu.dart';
+import 'package:lyrics_finder/models/settings.dart';
+import 'package:lyrics_finder/models/song.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,8 +44,8 @@ class MyApp extends StatelessWidget {
           title: Text(appTitle),
           backgroundColor: Colors.deepPurple,
         ),
-        body: ChooseMode(),
-        drawer: SideMenu(),
+        body: ModeSelectionPage(),
+        endDrawer: SideMenu(),
       ),
     );
   }
