@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'package:marquee_widget/marquee_widget.dart';
 
 import '../models/song.dart';
 
@@ -17,13 +19,18 @@ class SongInfo extends StatelessWidget {
     bool isPlaying = song.currentlyPlaying;
 
     if (isPlaying == null) return Container();
-    if (isPlaying == false) return Text('No song playing on Spotify');
+    if (isPlaying == false) return Text('No song playing');
 
     return Container(
-      child: Text(
-        'Currently playing: $artists - $name',
-        style: TextStyle(fontWeight: FontWeight.bold),
-        textAlign: TextAlign.center,
+      child: Marquee(
+        child: Text(
+          '$artists - $name',
+          style: TextStyle(
+            // fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
