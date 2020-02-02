@@ -14,9 +14,11 @@ Future<String> parseLyrics(String link) async {
 
   final body = response.body;
   if (response.statusCode == 200) {
-    final document = html.parse(body);
+    final decodedResponse = utf8.decode(response.bodyBytes);
+    final document = html.parse(decodedResponse);
     final lyricsDiv = document.querySelectorAll('div.ringtone ~ div');
-    return lyricsDiv[0].text.replaceAll('\\n', '').trim();
+    final lyrics = lyricsDiv[0].text;
+    return lyrics.replaceAll('\\n', '').trim();
   } else {
     print(body);
     throw Exception(body);
