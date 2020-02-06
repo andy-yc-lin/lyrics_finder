@@ -4,10 +4,12 @@ class Song with ChangeNotifier {
   String _name;
   List<String> _artists;
   bool _currentlyPlaying;
+  int _duration;
 
   String get name => _name;
   List<String> get artists => _artists;
   bool get currentlyPlaying => _currentlyPlaying;
+  int get duration => _duration;
 
   var updated = false;
 
@@ -41,6 +43,8 @@ class Song with ChangeNotifier {
 
     final item = json['item'];
     _name = item['name'];
+    _duration = item['duration_ms'] - json['progress_ms'];
+    print(_duration);
     final artists = item['artists'].map((artist) => artist['name']);
     _artists = new List<String>.from(artists);
     _currentlyPlaying = json['is_playing'];

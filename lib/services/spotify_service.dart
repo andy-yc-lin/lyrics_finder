@@ -20,6 +20,9 @@ Future<Song> getCurrentlyPlaying(context) async {
     Map<String, dynamic> decodedJSON;
     if (response.statusCode == 200 || response.statusCode == 204) {
       decodedJSON = res.isEmpty ? null : json.decode(res);
+    } else if (response.statusCode == 401) {
+      // TODO implement token refresh
+      // getCurrentlyPlaying(context);
     } else {
       print('getCurrentlyPlaying $res');
       throw Exception(res);

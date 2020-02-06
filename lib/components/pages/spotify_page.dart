@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:global_configuration/global_configuration.dart';
 
 import 'package:lyrics_finder/components/pages/auth_page.dart';
 import 'package:lyrics_finder/components/player.dart';
@@ -29,7 +28,7 @@ class SpotifyPage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   AuthPage(),
-                  Player(),
+                  Player(), // TODO remove for non premium users
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Lyrics(),
@@ -39,7 +38,7 @@ class SpotifyPage extends StatelessWidget {
             ),
           ),
           onRefresh: () => refreshSong(context),
-      ),
+        ),
       ),
       endDrawer: SideMenu(),
     );

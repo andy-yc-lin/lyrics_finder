@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lyrics_finder/services/spotify_service.dart' as spotifyService;
@@ -34,6 +33,13 @@ class Lyrics extends StatelessWidget {
       );
     }
 
+    Future.delayed(Duration(milliseconds: song.duration),
+      () => {
+            print('auto reload'),
+            spotifyService.getCurrentlyPlaying(context),
+          });
+
+    // TODO refactor into stateful widget??
     return FutureBuilder<String>(
       future: loadLyrics(artists, songName),
       builder: (context, snapshot) {
