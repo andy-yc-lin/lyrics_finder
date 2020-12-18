@@ -33,21 +33,17 @@ class Lyrics extends StatelessWidget {
       );
     }
 
-    Future.delayed(Duration(milliseconds: song.duration),
-      () => {
-            print('auto reload'),
-            spotifyService.getCurrentlyPlaying(context),
-          });
+    Future.delayed(
+        Duration(milliseconds: song.duration),
+        () => {
+              print('auto reload'),
+              spotifyService.getCurrentlyPlaying(context),
+            });
 
     // TODO refactor into stateful widget??
     return FutureBuilder<String>(
       future: loadLyrics(artists, songName),
       builder: (context, snapshot) {
-        if (snapshot.hasData)
-          return Text(
-            '${snapshot.data}',
-            textAlign: TextAlign.center,
-          );
         if (snapshot.hasError) {
           return Column(
             children: <Widget>[
@@ -66,8 +62,16 @@ class Lyrics extends StatelessWidget {
               )
             ],
           );
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
+          // Need this because snapshot seems to return with old lyrics while loading
+          return CircularProgressIndicator();
+        } else if (snapshot.hasData) {
+          print(snapshot);
+          return Text(
+            '${snapshot.data}',
+            textAlign: TextAlign.center,
+          );
         }
-        return CircularProgressIndicator();
       },
     );
   }

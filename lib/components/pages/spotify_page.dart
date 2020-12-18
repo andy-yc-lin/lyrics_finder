@@ -21,7 +21,7 @@ class SpotifyPage extends StatelessWidget {
         title: SongInfo(),
       ),
       body: GestureDetector(
-        onTap: () {/* workaround for refreshing on tap */},
+        onTap: () {/* empty; workaround for scaffold refreshing on tap */},
         child: RefreshIndicator(
           child: SingleChildScrollView(
             child: Center(

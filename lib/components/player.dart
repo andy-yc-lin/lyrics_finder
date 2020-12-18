@@ -11,48 +11,49 @@ class Player extends StatelessWidget {
     if (song.currentlyPlaying == null) return Container();
 
     return Container(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        IconButton(
-          icon: Icon(
-            Icons.skip_previous,
-            size: 32,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.skip_previous,
+              size: 32,
+            ),
+            onPressed: () async => {
+              spotifyService.playPrevious(),
+              await Future.delayed(Duration(milliseconds: 750)),
+              await spotifyService.getCurrentlyPlaying(context),
+            },
           ),
-          onPressed: () async => {
-            spotifyService.playPrevious(),
-            await Future.delayed(Duration(milliseconds: 750)),
-            await spotifyService.getCurrentlyPlaying(context),
-          },
-        ),
-        IconButton(
-          icon: song.currentlyPlaying == true
-              ? Icon(
-                  Icons.pause,
-                  size: 32,
-                )
-              : Icon(
-                  Icons.play_arrow,
-                  size: 32,
-                ),
-          onPressed: () async => {
-            spotifyService.playPause(song.currentlyPlaying),
-            await Future.delayed(Duration(milliseconds: 750)),
-            await spotifyService.getCurrentlyPlaying(context),
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.skip_next,
-            size: 32,
+          IconButton(
+            icon: song.currentlyPlaying == true
+                ? Icon(
+                    Icons.pause,
+                    size: 32,
+                  )
+                : Icon(
+                    Icons.play_arrow,
+                    size: 32,
+                  ),
+            onPressed: () async => {
+              spotifyService.playPause(song.currentlyPlaying),
+              await Future.delayed(Duration(milliseconds: 750)),
+              await spotifyService.getCurrentlyPlaying(context),
+            },
           ),
-          onPressed: () async => {
-            spotifyService.playNext(),
-            await Future.delayed(Duration(milliseconds: 750)),
-            await spotifyService.getCurrentlyPlaying(context),
-          },
-        ),
-      ],
-    ));
+          IconButton(
+            icon: Icon(
+              Icons.skip_next,
+              size: 32,
+            ),
+            onPressed: () async => {
+              spotifyService.playNext(),
+              await Future.delayed(Duration(milliseconds: 750)),
+              await spotifyService.getCurrentlyPlaying(context),
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
